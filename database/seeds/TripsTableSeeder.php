@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\Trip;
+use Faker\Generator as Faker;
+
 class TripsTableSeeder extends Seeder
 {
     /**
@@ -9,13 +11,13 @@ class TripsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
         for($i = 0; $i < 50; $i++) {
             $trip = new Trip();
-            $trip->description = 'Lorem ipsum';
-            $trip->name = 'Londra';
-            $trip->price = 100;
+            $trip->description = $faker->text($maxNbChars = 200);
+            $trip->name = $faker->city();
+            $trip->price = $faker->randomFloat(2, 100, 20_000);
             $trip->save();
         }
         
